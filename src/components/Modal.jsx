@@ -1,22 +1,27 @@
-import React from "react";
-import cl from "./Modal.module.css";
+import React from 'react'
 
 const Modal = ({ children, visible, changeVisibility }) => {
-  const rootClasses = [cl.modal];
   if (visible) {
-    rootClasses.push(cl.active);
-    document.body.classList.add("modal-open");
+    document.body.classList.add('modal-open')
   } else {
-    document.body.classList.remove("modal-open");
+    document.body.classList.remove('modal-open')
   }
 
   return (
-    <div className={rootClasses.join(" ")} onClick={changeVisibility}>
-      <div className={cl.modal_content} onClick={(e) => e.stopPropagation()}>
+    <div
+      className={`fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 z-20 justify-center items-center ${
+        !visible ? 'hidden' : 'flex'
+      }`}
+      onClick={changeVisibility}
+    >
+      <div
+        className="p-[25px] bg-white rounded-xl max-w-[600px] max-h-[300px] flex flex-col justify-center align-middle"
+        onClick={(e) => e.stopPropagation()}
+      >
         {children}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal
