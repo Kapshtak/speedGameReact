@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface TopScoreProps {
-  onClick: (event: React.MouseEvent<HTMLDivElement>) => void,
-  label: string,
+  onClick: (event: React.MouseEvent<HTMLDivElement>) => void
+  label: string
   difficulty: string
 }
 
@@ -27,7 +27,7 @@ const TopScore: React.FC<TopScoreProps> = ({ onClick, label, difficulty }) => {
         <table className="border-separate border-spacing-2 z-10 ">
           <caption className="caption-top m-4 font-normal text-5xl">
             Hall of Fame:
-            <p className='text-base mt-3'>{difficulty} difficulty</p>
+            <p className="text-base mt-3">{difficulty} difficulty</p>
           </caption>
           <thead>
             <tr>
@@ -59,7 +59,7 @@ const TopScore: React.FC<TopScoreProps> = ({ onClick, label, difficulty }) => {
                   style = ''
               }
               return (
-                <tr key={player.name}>
+                <tr key={player.name + player.score + index}>
                   <td
                     className={`shadow-inner h-[50px] text-center font-light text-xl ${style}`}
                   >

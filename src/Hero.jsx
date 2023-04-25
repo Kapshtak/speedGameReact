@@ -2,7 +2,7 @@ import React from 'react'
 
 const Hero = ({ onSubmit, onChange, score }) => {
   return (
-    <div className="sm:w-[500px] h-[460px] w-[300px]">
+    <div className="sm:w-[400px] w-[300px] text-center">
       <h2>You have scored {score} points and this is a new record!</h2>
       <h2 className="mt-2">
         Enter your name if you want to be part of history!
