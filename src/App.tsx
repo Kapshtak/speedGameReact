@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import CirclesBlock from './components/CriclesBlock'
 import Modal from './components/Modal'
+import Difficulty from './Difficulty'
 import Hero from './Hero'
 import TopScore from './TopScore'
 
@@ -18,7 +19,26 @@ class App extends Component {
     gameMaxSpeed: 700,
     name: '',
     modal: false,
-    hallOfFameVisibility: false
+    hallOfFameVisibility: false,
+    difficulty: 'easy'
+  }
+
+  setGameDifficulty = () => {
+    switch (this.state.difficulty) {
+      case 'easy':
+        this.setState({ gameMaxSpeed: 750, gameStep: 0.98 })
+        break
+      case 'medium':
+        this.setState({ gameMaxSpeed: 650, gameStep: 0.95 })
+        break
+      case 'hard':
+        this.setState({ gameMaxSpeed: 550, gameStep: 0.92 })
+        break
+    }
+  }
+
+  gameDifficultyHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({difficulty: event.target.value})
   }
 
   clickHandler = (id: number): void => {
@@ -69,6 +89,7 @@ class App extends Component {
   }
 
   startGame = (): void => {
+    this.setGameDifficulty()
     this.setState({
       counter: 0,
       score: 0,
@@ -94,7 +115,6 @@ class App extends Component {
       return
     }
     if (this.state.counter - this.state.score === 3) {
-      //manageLives()
       this.gameOver()
       return
     }
@@ -198,6 +218,7 @@ class App extends Component {
           activeCircleNumber={this.state.currentCircle}
         />
         <div className="flex justify-center sm:mt-16 mt-10 font-extralight">
+          <Difficulty onChangeInput={this.gameDifficultyHandler} ></Difficulty>
           {!this.state.gameStatus && (
             <button
               className="bg-teal-400 w-[150px] h-[40px] rounded-md shadow-md shadow-teal-800 hover:shadow-md hover:shadow-teal-500 transition-all"
