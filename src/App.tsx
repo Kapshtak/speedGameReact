@@ -217,7 +217,7 @@ class App extends Component {
           onClick={this.clickHandler}
           activeCircleNumber={this.state.currentCircle}
         />
-        <div className="flex justify-center sm:mt-16 mt-10 font-extralight">
+        <div className="flex flex-col sm:mt-16 mt-10 font-extralight">
           <Difficulty onChangeInput={this.gameDifficultyHandler} ></Difficulty>
           {!this.state.gameStatus && (
             <button

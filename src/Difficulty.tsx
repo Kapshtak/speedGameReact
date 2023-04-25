@@ -6,7 +6,7 @@ interface DifficultyProps {
 
 const Difficulty: React.FC<DifficultyProps> = ({ onChangeInput }) => {
   return (
-    <div>
+    <div className="animate-bounce">
       <legend>Select the game difficulty</legend>
       <select name="difficulty" onChange={onChangeInput}>
         <option value="easy">Easy</option>
