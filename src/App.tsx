@@ -215,7 +215,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="mx-auto w-screen h-screen bg-sky-100">
+      <div className="mx-auto w-screen h-screen bg-sky-100 overflow-hidden">
         <Modal visible={this.state.modal} changeVisibility={this.closeModal}>
           {this.state.newTopScore && (
             <Hero

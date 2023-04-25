@@ -9,10 +9,10 @@ type Props = {
 const CirclesBlock = ({ activeCircleNumber, onClick }: Props) => {
   const circles = [1, 2, 3, 4]
   return (
-    <div className="flex sm:flex-nowrap flex-wrap sm:w-auto w-[375px] sm:justify-center justify-center mt-[10px] -z-10">
-      {circles.map((item) => (
-        <Fragment key={item}>
-          {
+    <div className="flex items-center justify-center">
+      <div className="flex flex-wrap w-[400px] sm:flex-nowrap sm:w-auto mt-[10px] justify-center">
+        {circles.map((item) => (
+          <Fragment key={item}>
             <Circle
               id={item}
               active={item === activeCircleNumber}
@@ -20,9 +20,9 @@ const CirclesBlock = ({ activeCircleNumber, onClick }: Props) => {
                 onClick(item)
               }}
             />
-          }
-        </Fragment>
-      ))}
+          </Fragment>
+        ))}
+      </div>
     </div>
   )
 }
