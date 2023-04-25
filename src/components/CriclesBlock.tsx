@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import Circle from './Circle'
 
-type Props = {
+interface CirclesBlockProps {
   activeCircleNumber: number
   onClick: (id: number) => void
 }
 
-const CirclesBlock = ({ activeCircleNumber, onClick }: Props) => {
+const CirclesBlock = ({ activeCircleNumber, onClick }: CirclesBlockProps) => {
   const circles = [1, 2, 3, 4]
   return (
     <div className="flex items-center justify-center">

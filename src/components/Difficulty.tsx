@@ -2,10 +2,10 @@ import React from 'react'
 
 interface DifficultyProps {
   onChangeInput: (event: React.ChangeEvent<HTMLSelectElement>) => void
-  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-const Difficulty: React.FC<DifficultyProps> = ({ onChangeInput, onClick }) => {
+const Difficulty = ({ onChangeInput, onClick }: DifficultyProps) => {
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 justify-center flex flex-col items-center ease-in duration-300 z-30">
       <div className="bg-white bg-opacity-95 shadow-2xl rounded-lg sm:w-[350px] h-[150px] w-[300px] flex flex-col justify-center items-center">

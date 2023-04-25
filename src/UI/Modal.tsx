@@ -1,6 +1,10 @@
-import React from 'react'
+interface ModalProps {
+  children: any,
+  visible: boolean,
+  changeVisibility: () => void
+}
 
-const Modal = ({ children, visible, changeVisibility }) => {
+const Modal = ({ children, visible, changeVisibility }: ModalProps) => {
   if (visible) {
     document.body.classList.add('modal-open')
   } else {

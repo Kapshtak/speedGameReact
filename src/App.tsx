@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import CirclesBlock from './components/CriclesBlock'
-import Modal from './components/Modal'
-import Difficulty from './Difficulty'
-import Hero from './Hero'
-import TopScore from './TopScore'
+import Modal from './UI/Modal'
+import Difficulty from './components/Difficulty'
+import Hero from './components/Hero'
+import TopScore from './components/TopScore'
 import pewSound from './sounds/sound.wav'
 import failSound from './sounds/fail.wav'
 import championSound from './sounds/champion.wav'
@@ -13,7 +13,7 @@ class App extends Component {
     counter: 0,
     score: 0,
     currentCircle: -1,
-    lastClickedCircle: -1,
+    lastCircle: -1,
     nextCircle: -1,
     gameStatus: false,
     gamePace: 1000,
@@ -29,7 +29,7 @@ class App extends Component {
   }
 
   // sounds
-  pewSound = () => {
+  pewSound = (): void => {
     const sound = new Audio(pewSound)
     const sound2 = new Audio(pewSound)
     if (sound.duration > 0) {
@@ -39,14 +39,14 @@ class App extends Component {
     }
   }
 
-  failSound = () => {
+  failSound = (): void => {
     const sound = new Audio(failSound)
     sound.volume = 0.4
     sound.play()
   }
 
   // game difficulty
-  setGameDifficulty = () => {
+  setGameDifficulty = (): void => {
     switch (this.state.difficulty) {
       case 'easy':
         this.setState({
@@ -72,11 +72,13 @@ class App extends Component {
     }
   }
 
-  gameDifficultyHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  gameDifficultyHandler = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
     this.setState({ difficulty: event.target.value })
   }
 
-  difficultySelectionVisibility = () => {
+  difficultySelectionVisibility = (): void => {
     this.setState({
       difficultySelectionVisibility: !this.state.difficultySelectionVisibility
     })
@@ -99,9 +101,9 @@ class App extends Component {
   clickHandler = (id: number): void => {
     if (this.state.gameStatus) {
       if (id === this.state.currentCircle) {
-        if (id !== this.state.lastClickedCircle) {
+        if (id !== this.state.lastCircle) {
           this.pewSound()
-          this.setState({ score: this.state.score + 1, lastClickedCircle: id })
+          this.setState({ score: this.state.score + 1, lastCircle: id })
         }
       } else {
         this.failSound()
@@ -133,7 +135,7 @@ class App extends Component {
       counter: 0,
       score: 0,
       currentCircle: -1,
-      lastClickedCircle: -1,
+      lastCircle: -1,
       nextCircle: -1,
       gamePace: 1000,
       gameStatus: true,
@@ -170,11 +172,11 @@ class App extends Component {
     }
   }
 
-  heroNameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  heroNameOnChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ name: event.target.value })
   }
 
-  setTopScore = (event: React.FormEvent<HTMLFormElement>) => {
+  setTopScore = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     const topScoreString = localStorage.getItem(this.state.topScoreLabel)
     let topScore: { name: string; score: number }[] = []
@@ -204,7 +206,7 @@ class App extends Component {
     this.hallOfFame()
   }
 
-  hallOfFame = () => {
+  hallOfFame = (): void => {
     this.setGameDifficulty()
     this.setState({ hallOfFameVisibility: !this.state.hallOfFameVisibility })
   }
@@ -215,7 +217,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="mx-auto w-screen h-screen bg-sky-100 overflow-hidden">
+      <div className="mx-auto w-screen h-screen bg-sky-50 overflow-hidden">
         <Modal visible={this.state.modal} changeVisibility={this.closeModal}>
           {this.state.newTopScore && (
             <Hero
@@ -250,7 +252,7 @@ class App extends Component {
                 className="sm:mt-8 mt:2 animate-bounce bg-teal-400 w-[150px] h-[40px] rounded-md shadow-md shadow-teal-800 hover:shadow-md hover:shadow-teal-500 transition-all text-base text-black font-extralight"
                 onClick={this.hallOfFame}
               >
-                Hall of hame!
+                Hall of fame!
               </button>
             </div>
           )}

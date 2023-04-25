@@ -1,6 +1,10 @@
-import React from 'react'
+interface HeroProps {
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  score: number
+}
 
-const Hero = ({ onSubmit, onChange, score }) => {
+const Hero = ({ onSubmit, onChange, score }: HeroProps) => {
   return (
     <div className="sm:w-[400px] w-[300px] text-center">
       <h2>You have scored {score} points and this is a new record!</h2>

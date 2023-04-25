@@ -6,7 +6,7 @@ interface TopScoreProps {
   difficulty: string
 }
 
-const TopScore: React.FC<TopScoreProps> = ({ onClick, label, difficulty }) => {
+const TopScore = ({ onClick, label, difficulty }: TopScoreProps) => {
   const getOrdinal = (n: number) => {
     const s = ['th', 'st', 'nd', 'rd']
     const v = n % 100
