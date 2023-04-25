@@ -20,25 +20,33 @@ class App extends Component {
     name: '',
     modal: false,
     hallOfFameVisibility: false,
-    difficulty: 'easy'
+    difficultySelectionVisibility: false,
+    difficulty: 'easy',
+    topScoreLabel: 'topScoreEasy'
   }
 
   setGameDifficulty = () => {
     switch (this.state.difficulty) {
       case 'easy':
-        this.setState({ gameMaxSpeed: 750, gameStep: 0.98 })
+        this.setState({ gameMaxSpeed: 750, gameStep: 0.98, topScoreLabel: 'topScoreEasy' })
         break
       case 'medium':
-        this.setState({ gameMaxSpeed: 650, gameStep: 0.95 })
+        this.setState({ gameMaxSpeed: 650, gameStep: 0.95, topScoreLabel: 'topScoreMedium' })
         break
       case 'hard':
-        this.setState({ gameMaxSpeed: 550, gameStep: 0.92 })
+        this.setState({ gameMaxSpeed: 550, gameStep: 0.92, topScoreLabel: 'topScoreHard' })
         break
     }
   }
 
   gameDifficultyHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({difficulty: event.target.value})
+    this.setState({ difficulty: event.target.value })
+  }
+
+  difficultySelectionVisibility = () => {
+    this.setState({
+      difficultySelectionVisibility: !this.state.difficultySelectionVisibility
+    })
   }
 
   clickHandler = (id: number): void => {
@@ -72,7 +80,7 @@ class App extends Component {
   }
 
   checkTopScore = (): boolean => {
-    const topScoreString = localStorage.getItem('topScore')
+    const topScoreString = localStorage.getItem(this.state.topScoreLabel)
     let topScore: { name: string; score: number }[] = []
     if (topScoreString !== null) {
       topScore = JSON.parse(topScoreString)
@@ -133,7 +141,7 @@ class App extends Component {
 
   setTopScore = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const topScoreString = localStorage.getItem('topScore')
+    const topScoreString = localStorage.getItem(this.state.topScoreLabel)
     let topScore: { name: string; score: number }[] = []
     if (topScoreString !== null) {
       topScore = JSON.parse(topScoreString)
@@ -141,12 +149,12 @@ class App extends Component {
     if (topScore.length < 5) {
       topScore.push({ name: this.state.name, score: this.state.score })
       topScore.sort((a, b) => b.score - a.score)
-      localStorage.setItem('topScore', JSON.stringify(topScore.slice(0, 5)))
+      localStorage.setItem(this.state.topScoreLabel, JSON.stringify(topScore.slice(0, 5)))
     } else {
       if (topScore[4].score <= this.state.score) {
         topScore.push({ name: this.state.name, score: this.state.score })
         topScore.sort((a, b) => b.score - a.score)
-        localStorage.setItem('topScore', JSON.stringify(topScore.slice(0, 5)))
+        localStorage.setItem(this.state.topScoreLabel, JSON.stringify(topScore.slice(0, 5)))
       }
     }
     this.setState({
@@ -164,6 +172,7 @@ class App extends Component {
   }
 
   hallOfFame = () => {
+    this.setGameDifficulty()
     this.setState({ hallOfFameVisibility: !this.state.hallOfFameVisibility })
   }
 
@@ -210,23 +219,32 @@ class App extends Component {
           )}
           {this.state.gameStatus === true && <h2>SCORE: {this.state.score}</h2>}
           {this.state.hallOfFameVisibility && (
-            <TopScore onClick={this.hallOfFame} />
+            <TopScore onClick={this.hallOfFame} label={this.state.topScoreLabel} difficulty={this.state.difficulty} />
           )}
         </div>
         <CirclesBlock
           onClick={this.clickHandler}
           activeCircleNumber={this.state.currentCircle}
         />
-        <div className="flex flex-col sm:mt-16 mt-10 font-extralight">
-          <Difficulty onChangeInput={this.gameDifficultyHandler} ></Difficulty>
+        <div className="flex flex-col sm:mt-16 mt-8 font-extralight items-center">
+          {this.state.difficultySelectionVisibility && <Difficulty
+            onChangeInput={this.gameDifficultyHandler}
+            onClick={this.difficultySelectionVisibility}
+          ></Difficulty>}
           {!this.state.gameStatus && (
             <button
-              className="bg-teal-400 w-[150px] h-[40px] rounded-md shadow-md shadow-teal-800 hover:shadow-md hover:shadow-teal-500 transition-all"
+              className="animate-bounce bg-teal-400 w-[270px] h-[40px] rounded-md shadow-md shadow-teal-800 hover:shadow-md hover:shadow-teal-500 transition-all"
               onClick={this.startGame}
             >
-              Start game
+              Start the game on {this.state.difficulty} difficulty
             </button>
           )}
+          {!this.state.gameStatus && <button
+              className="animate-bounce sm:mt-5 mt-3 bg-teal-400 w-[270px] h-[40px] rounded-md shadow-md shadow-teal-800 hover:shadow-md hover:shadow-teal-500 transition-all"
+              onClick={this.difficultySelectionVisibility}
+            >
+              Change the game difficulty
+            </button>}
           {this.state.gameStatus && (
             <button
               className="  bg-cyan-700 text-white w-[150px] h-[40px] rounded-md shadow-md shadow-teal-800 hover:shadow-md hover:shadow-teal-500 transition-all"
