@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/speedGameReact/static/css/main.b8c36768.css",
+    "main.js": "/speedGameReact/static/js/main.1c4bc638.js",
+    "static/media/champion.wav": "/speedGameReact/static/media/champion.cb8f06f210e73e3bb926.wav",
+    "static/media/sound.wav": "/speedGameReact/static/media/sound.00620e2b00b667447684.wav",
+    "static/media/start.wav": "/speedGameReact/static/media/start.df24ac062b84d1de9165.wav",
+    "static/media/fail.wav": "/speedGameReact/static/media/fail.1b45a86e46b3030f1563.wav",
+    "index.html": "/speedGameReact/index.html",
+    "main.b8c36768.css.map": "/speedGameReact/static/css/main.b8c36768.css.map",
+    "main.1c4bc638.js.map": "/speedGameReact/static/js/main.1c4bc638.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b8c36768.css",
+    "static/js/main.1c4bc638.js"
+  ]
+}
