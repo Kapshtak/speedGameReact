@@ -257,6 +257,7 @@ class App extends Component {
         </div>
         <CirclesBlock
           activeCircleNumber={this.state.currentCircle}
+          difficulty={this.state.difficulty}
           onClick={this.clickHandler}
           totalCircles={this.state.totalCircles}
         />

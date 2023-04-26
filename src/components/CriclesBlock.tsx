@@ -3,11 +3,12 @@ import Circle from './Circle'
 
 interface ICirclesBlock {
   activeCircleNumber: number
+  difficulty: string
   onClick: (id: number) => void
   totalCircles: number
 }
 
-const CirclesBlock = ({ activeCircleNumber, onClick, totalCircles }: ICirclesBlock) => {
+const CirclesBlock = ({ activeCircleNumber, difficulty, onClick, totalCircles }: ICirclesBlock) => {
   const circles = []
   for (let i = 0; i < totalCircles; i++ )
   {
@@ -20,6 +21,7 @@ const CirclesBlock = ({ activeCircleNumber, onClick, totalCircles }: ICirclesBlo
           <Fragment key={item}>
             <Circle
               active={item === activeCircleNumber}
+              difficulty={difficulty}
               onClick={() => {
                 onClick(item)
               }}
