@@ -18,7 +18,7 @@ class App extends Component {
     difficulty: 'easy',
     difficultySelectionVisibility: false,
     gameMaxSpeed: 700,
-    gamePace: 1000,
+    gameSpeed: 1000,
     gameStatus: false,
     gameStep: 0.98,
     hallOfFameVisibility: false,
@@ -29,7 +29,8 @@ class App extends Component {
     newTopScore: false,
     score: 0,
     skippedCircles: 0,
-    topScoreLabel: 'topScoreEasy'
+    topScoreLabel: 'topScoreEasy',
+    totalCircles: 4
   }
 
   // sounds
@@ -87,7 +88,7 @@ class App extends Component {
   getActiveCircle = (): void => {
     let nextCircle = this.state.currentCircle
     while (nextCircle === this.state.currentCircle) {
-      nextCircle = Math.floor(Math.random() * 4) + 1
+      nextCircle = Math.floor(Math.random() * this.state.totalCircles) + 1
     }
     this.setState({ currentCircle: nextCircle })
   }
@@ -122,9 +123,9 @@ class App extends Component {
       this.gameOver()
       return
     }
-    setTimeout(this.manageGame, this.state.gamePace)
-    if (this.state.gamePace > this.state.gameMaxSpeed) {
-      this.setState({ gamePace: this.state.gamePace * this.state.gameStep })
+    setTimeout(this.manageGame, this.state.gameSpeed)
+    if (this.state.gameSpeed > this.state.gameMaxSpeed) {
+      this.setState({ gameSpeed: this.state.gameSpeed * this.state.gameStep })
       this.manageCircles()
     } else {
       this.manageCircles()
@@ -136,7 +137,7 @@ class App extends Component {
     this.setState({
       counter: 0,
       currentCircle: -1,
-      gamePace: 1000,
+      gameSpeed: 1000,
       gameStatus: true,
       lastCircle: -1,
       modal: false,
@@ -144,7 +145,7 @@ class App extends Component {
       nextCircle: -1,
       newTopScore: false,
       score: 0,
-      skippedCircles: 0
+      skippedCircles: 0,
     })
     const sound = new Audio(startSound)
     sound.play()
@@ -255,8 +256,9 @@ class App extends Component {
           )}
         </div>
         <CirclesBlock
-          onClick={this.clickHandler}
           activeCircleNumber={this.state.currentCircle}
+          onClick={this.clickHandler}
+          totalCircles={this.state.totalCircles}
         />
         <div className="flex flex-col sm:mt-16 mt-8 font-extralight items-center">
           {this.state.difficultySelectionVisibility && (
