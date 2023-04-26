@@ -1,9 +1,10 @@
 # Speed game
-This project is a game with simple rules: you have to click on appearing circles as fast as you can. If you skip three circles, or click on the wrong one, the game is over. The game has three difficulty levels, so you can test your ability to click quickly in a more stressful atmosphere. 
+
+This project is a game with simple rules: you have to click on appearing circles as fast as you can. If you skip three circles, or click on the wrong one, the game is over. The game has three difficulty levels, so you can test your ability to click quickly in a more stressful atmosphere.
 
 ## Technologies used
 
-This project was built with: 
+This project was built with:
 
 - TypeScript
 - React
@@ -18,28 +19,36 @@ Live page is here :
 To get started with this project locally, you will need to have npm installed on your machine.
 
 - Clone this repository using the following command:
+
 ```
 git clone https://github.com/Kapshtak/speedGameReact.git
 ```
+
 - Navigate into the project directory:
+
 ```
 cd speedGameReact
 ```
+
 - Install the project dependencies:
+
 ```
 npm install
 ```
+
 - Start the development server:
+
 ```
 npm start
 ```
+
 - The app will be served at http://localhost:3000.
 
 ## Screenshot
 
-![desktop screenshot](https://github.com/Kapshtak/speedGameReact/blob/main/screenshots/speedgame(desktop).png)
+![desktop screenshot](<https://github.com/Kapshtak/speedGameReact/blob/main/screenshots/speedgame(desktop).png>)
 
-![iPhoneSE screenshot](https://github.com/Kapshtak/speedGameReact/blob/main/screenshots/speedgame(iPhone_SE).png)
+![iPhoneSE screenshot](<https://github.com/Kapshtak/speedGameReact/blob/main/screenshots/speedgame(iPhone_SE).png>)
 
 ## Author
 

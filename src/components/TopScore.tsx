@@ -1,17 +1,18 @@
 import React from 'react'
 
-interface TopScoreProps {
+interface ITopScore {
   onClick: (event: React.MouseEvent<HTMLDivElement>) => void
   label: string
   difficulty: string
 }
 
-const TopScore = ({ onClick, label, difficulty }: TopScoreProps) => {
+const TopScore = ({ onClick, label, difficulty }: ITopScore) => {
   const getOrdinal = (n: number) => {
     const s = ['th', 'st', 'nd', 'rd']
     const v = n % 100
     return n + (s[(v - 20) % 10] || s[v] || s[0])
   }
+
   const topScoreString = localStorage.getItem(label)
   let topScore: { name: string; score: number }[] = []
   if (topScoreString !== null) {
