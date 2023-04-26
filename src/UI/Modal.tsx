@@ -1,6 +1,6 @@
 interface ModalProps {
-  children: any,
-  visible: boolean,
+  children: any
+  visible: boolean
   changeVisibility: () => void
 }
 

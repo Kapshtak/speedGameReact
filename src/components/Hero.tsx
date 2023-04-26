@@ -1,10 +1,10 @@
-interface HeroProps {
+interface IHero {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   score: number
 }
 
-const Hero = ({ onSubmit, onChange, score }: HeroProps) => {
+const Hero = ({ onSubmit, onChange, score }: IHero) => {
   return (
     <div className="sm:w-[400px] w-[300px] text-center">
       <h2>You have scored {score} points and this is a new record!</h2>

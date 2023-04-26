@@ -1,11 +1,11 @@
 import React from 'react'
 
-interface DifficultyProps {
+interface IDifficulty {
   onChangeInput: (event: React.ChangeEvent<HTMLSelectElement>) => void
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-const Difficulty = ({ onChangeInput, onClick }: DifficultyProps) => {
+const Difficulty = ({ onChangeInput, onClick }: IDifficulty) => {
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 justify-center flex flex-col items-center ease-in duration-300 z-30">
       <div className="bg-white bg-opacity-95 shadow-2xl rounded-lg sm:w-[350px] h-[150px] w-[300px] flex flex-col justify-center items-center">

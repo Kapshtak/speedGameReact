@@ -1,42 +1,41 @@
 import React, { Component } from 'react'
 import CirclesBlock from './components/CriclesBlock'
-import Modal from './UI/Modal'
 import Difficulty from './components/Difficulty'
-import Hero from './components/Hero'
+import EndGameMessage from './components/EndGameMessage'
+import HallOfFame from './components/HallOfFame'
+import Header from './components/Header'
+import Score from './components/Score'
 import TopScore from './components/TopScore'
-import pewSound from './sounds/sound.wav'
-import failSound from './sounds/fail.wav'
 import championSound from './sounds/champion.wav'
+import failSound from './sounds/fail.wav'
+import pewSound from './sounds/sound.wav'
+import startSound from './sounds/start.wav'
 
 class App extends Component {
   state = {
     counter: 0,
-    score: 0,
     currentCircle: -1,
-    lastCircle: -1,
-    nextCircle: -1,
-    gameStatus: false,
-    gamePace: 1000,
-    gameStep: 0.98,
-    gameMaxSpeed: 700,
-    name: '',
-    modal: false,
-    hallOfFameVisibility: false,
-    difficultySelectionVisibility: false,
     difficulty: 'easy',
-    topScoreLabel: 'topScoreEasy',
-    newTopScore: false
+    difficultySelectionVisibility: false,
+    gameMaxSpeed: 700,
+    gamePace: 1000,
+    gameStatus: false,
+    gameStep: 0.98,
+    hallOfFameVisibility: false,
+    lastCircle: -1,
+    modal: false,
+    name: '',
+    nextCircle: -1,
+    newTopScore: false,
+    score: 0,
+    skippedCircles: 0,
+    topScoreLabel: 'topScoreEasy'
   }
 
   // sounds
   pewSound = (): void => {
     const sound = new Audio(pewSound)
-    const sound2 = new Audio(pewSound)
-    if (sound.duration > 0) {
-      sound2.play()
-    } else {
-      sound.play()
-    }
+    sound.play()
   }
 
   failSound = (): void => {
@@ -95,7 +94,10 @@ class App extends Component {
 
   manageCircles = (): void => {
     this.getActiveCircle()
-    this.setState({ counter: this.state.counter + 1 })
+    this.setState({
+      counter: this.state.counter + 1,
+      skippedCircles: this.state.counter - this.state.score
+    })
   }
 
   clickHandler = (id: number): void => {
@@ -133,16 +135,19 @@ class App extends Component {
     this.setGameDifficulty()
     this.setState({
       counter: 0,
-      score: 0,
       currentCircle: -1,
-      lastCircle: -1,
-      nextCircle: -1,
       gamePace: 1000,
       gameStatus: true,
-      name: '',
+      lastCircle: -1,
       modal: false,
-      newTopScore: false
+      name: '',
+      nextCircle: -1,
+      newTopScore: false,
+      score: 0,
+      skippedCircles: 0
     })
+    const sound = new Audio(startSound)
+    sound.play()
     setTimeout(() => {
       this.manageGame()
     }, 1000)
@@ -154,13 +159,18 @@ class App extends Component {
   }
 
   // top score
-  checkTopScore = (): void => {
+  getLeaderboardFromLocalStorage = (): { name: string; score: number }[] => {
     const topScoreString = localStorage.getItem(this.state.topScoreLabel)
-    const champSound = new Audio(championSound)
     let topScore: { name: string; score: number }[] = []
     if (topScoreString !== null) {
       topScore = JSON.parse(topScoreString)
     }
+    return topScore
+  }
+
+  checkTopScore = (): void => {
+    const champSound = new Audio(championSound)
+    let topScore = this.getLeaderboardFromLocalStorage()
     if (topScore.length < 5) {
       this.setState({ newTopScore: true })
       champSound.play()
@@ -172,17 +182,9 @@ class App extends Component {
     }
   }
 
-  heroNameOnChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ name: event.target.value })
-  }
-
   setTopScore = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    const topScoreString = localStorage.getItem(this.state.topScoreLabel)
-    let topScore: { name: string; score: number }[] = []
-    if (topScoreString !== null) {
-      topScore = JSON.parse(topScoreString)
-    }
+    let topScore = this.getLeaderboardFromLocalStorage()
     if (topScore.length < 5) {
       topScore.push({ name: this.state.name, score: this.state.score })
       topScore.sort((a, b) => b.score - a.score)
@@ -203,10 +205,16 @@ class App extends Component {
     this.setState({
       modal: false
     })
-    this.hallOfFame()
+    this.showHallOfFame()
   }
 
-  hallOfFame = (): void => {
+  heroNameOnChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    this.setState({ name: event.target.value })
+  }
+
+  showHallOfFame = (): void => {
     this.setGameDifficulty()
     this.setState({ hallOfFameVisibility: !this.state.hallOfFameVisibility })
   }
@@ -218,48 +226,29 @@ class App extends Component {
   render() {
     return (
       <div className="mx-auto w-screen h-screen bg-sky-50 overflow-hidden">
-        <Modal visible={this.state.modal} changeVisibility={this.closeModal}>
-          {this.state.newTopScore && (
-            <Hero
-              onChange={this.heroNameOnChange}
-              onSubmit={this.setTopScore}
-              score={this.state.score}
-            ></Hero>
-          )}
-          {!this.state.newTopScore && (
-            <>
-              <h2>You have scored {this.state.score} points</h2>
-              <button
-                className="mt-8 font-light bg-teal-400 w-[150px] h-[40px] rounded-md shadow-md shadow-teal-800 hover:shadow-md hover:shadow-teal-500 transition-all self-center "
-                onClick={this.startGame}
-              >
-                Restart game
-              </button>
-            </>
-          )}
-        </Modal>
-        <h1 className="text-center pt-[35px] font-light text-sky-700 text-5xl mb-[50px]">
-          {`speedGame by `}
-          <span className="text-center text-yellow-600 text-5xl underline decoration-wavy underline-offset-[15px] decoration-2 decoration-red-400">
-            {`camel_case`}
-          </span>
-        </h1>
-
+        <EndGameMessage
+          modal={this.state.modal}
+          closeModal={this.closeModal}
+          newTopScore={this.state.newTopScore}
+          heroNameOnChangeHandler={this.heroNameOnChangeHandler}
+          setTopScore={this.setTopScore}
+          score={this.state.score}
+          startGame={this.startGame}
+        />
+        <Header />
         <div className="flex sm:h-[160px] h-[30px] justify-center items-center flex-col font-light text-3xl text-sky-700 mt-4 m-auto">
           {!this.state.hallOfFameVisibility && !this.state.gameStatus && (
-            <div className="flex justify-center">
-              <button
-                className="sm:mt-8 mt:2 animate-bounce bg-teal-400 w-[150px] h-[40px] rounded-md shadow-md shadow-teal-800 hover:shadow-md hover:shadow-teal-500 transition-all text-base text-black font-extralight"
-                onClick={this.hallOfFame}
-              >
-                Hall of fame!
-              </button>
-            </div>
+            <HallOfFame showHallOfFame={this.showHallOfFame} />
           )}
-          {this.state.gameStatus === true && <h2>SCORE: {this.state.score}</h2>}
+          {this.state.gameStatus === true && (
+            <Score
+              score={this.state.score}
+              skippedCircles={this.state.skippedCircles}
+            />
+          )}
           {this.state.hallOfFameVisibility && (
             <TopScore
-              onClick={this.hallOfFame}
+              onClick={this.showHallOfFame}
               label={this.state.topScoreLabel}
               difficulty={this.state.difficulty}
             />
