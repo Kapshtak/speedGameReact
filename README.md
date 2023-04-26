@@ -46,9 +46,9 @@ npm start
 
 ## Screenshot
 
-![desktop screenshot](<https://github.com/Kapshtak/speedGameReact/blob/main/screenshots/speedgame(desktop).png>)
+![desktop screenshot](<https://github.com/Kapshtak/speedGameReact/blob/main/screenshots/speedgame_(desktop).png>)
 
-![iPhoneSE screenshot](<https://github.com/Kapshtak/speedGameReact/blob/main/screenshots/speedgame(iPhone_SE).png>)
+![iPhoneSE screenshot](<https://github.com/Kapshtak/speedGameReact/blob/main/screenshots/speedgame_(iPhone_SE).png>)
 
 ## Author
 
