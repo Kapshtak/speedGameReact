@@ -145,7 +145,7 @@ class App extends Component {
       nextCircle: -1,
       newTopScore: false,
       score: 0,
-      skippedCircles: 0,
+      skippedCircles: 0
     })
     const sound = new Audio(startSound)
     sound.play()

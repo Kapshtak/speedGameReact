@@ -34,7 +34,7 @@ const EndGameMessage = ({
   } else {
     finalMessage = messagesArray[3]
   }
-  
+
   return (
     <Modal visible={modal} changeVisibility={closeModal}>
       {newTopScore && (
@@ -46,8 +46,8 @@ const EndGameMessage = ({
       )}
       {!newTopScore && (
         <>
-          <h2 className='text-center'>You have scored {score} points</h2>
-          <h2 className='text-center'>{finalMessage}</h2>
+          <h2 className="text-center">You have scored {score} points</h2>
+          <h2 className="text-center">{finalMessage}</h2>
           <button
             className="mt-8 font-light bg-teal-400 w-[150px] h-[40px] rounded-md shadow-md shadow-teal-800 hover:shadow-md hover:shadow-teal-500 transition-all self-center "
             onClick={startGame}

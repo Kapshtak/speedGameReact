@@ -8,11 +8,15 @@ interface ICirclesBlock {
   totalCircles: number
 }
 
-const CirclesBlock = ({ activeCircleNumber, difficulty, onClick, totalCircles }: ICirclesBlock) => {
+const CirclesBlock = ({
+  activeCircleNumber,
+  difficulty,
+  onClick,
+  totalCircles
+}: ICirclesBlock) => {
   const circles = []
-  for (let i = 0; i < totalCircles; i++ )
-  {
-    circles.push(i+1)
+  for (let i = 0; i < totalCircles; i++) {
+    circles.push(i + 1)
   }
   return (
     <div className="flex items-center justify-center">
