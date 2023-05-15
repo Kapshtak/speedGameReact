@@ -14,7 +14,7 @@ This project was built with:
 
 Live page is here :
 
-[![Link](https://img.shields.io/badge/Link-Visit-blue?style=for-the-badge&logo=link)](https://public.bc.fi/s2300101/reactspeed/)
+[![Link](https://img.shields.io/badge/Link-Visit-blue?style=for-the-badge&logo=link)](https://public.bc.fi/s2300101/reactSpeedGame/)
 
 To get started with this project locally, you will need to have npm installed on your machine.
 
